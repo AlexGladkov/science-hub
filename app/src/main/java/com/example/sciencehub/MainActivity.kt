@@ -2,7 +2,12 @@ package com.example.sciencehub
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
+import android.util.Log
+import androidx.lifecycle.ViewModelProvider
+import features.space.rockets.fetch_productions.FetchProductionsUseCase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -10,6 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        txtTitle.text = createApplicationScreenMessage()
+        val model: MainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        model.fetchProductions()
     }
 }

@@ -16,7 +16,7 @@ kotlin {
     iOSTarget("ios") {
         binaries {
             framework {
-                baseName = "SharedCode"
+                baseName = "SharedData"
             }
         }
     }
@@ -24,30 +24,38 @@ kotlin {
     jvm("android")
 
     // Libraries versions
-    val kotlinSerialization = "0.20.0"
-    val ktorVersion = "1.3.2"
-    val kotlinCoroutines = "1.3.4"
-
+    val ktorVersion = "1.2.6"
+    val coroutinesVersion = "1.3.2"
+    val serializationVersion = "0.14.0"
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$kotlinSerialization")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$serializationVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
+
+        // HTTP
         implementation("io.ktor:ktor-client-core:$ktorVersion")
-        implementation(":shared_data")
+        implementation("io.ktor:ktor-client-json:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization:$ktorVersion")
     }
 
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+
+        // HTTP
         implementation("io.ktor:ktor-client-android:$ktorVersion")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines")
-        implementation(":shared_data")
+        implementation("io.ktor:ktor-client-json-jvm:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
     }
 
     sourceSets["iosMain"].dependencies {
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+
+        // HTTP
         implementation("io.ktor:ktor-client-ios:$ktorVersion")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines")
-        implementation(":shared_data")
+        implementation("io.ktor:ktor-client-json-native:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-iosx64:$ktorVersion")
     }
 }
 
