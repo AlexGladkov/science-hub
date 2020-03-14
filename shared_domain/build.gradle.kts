@@ -16,27 +16,51 @@ kotlin {
     iOSTarget("ios") {
         binaries {
             framework {
-                baseName = "SharedCode"
+                baseName = "SharedDomain"
             }
         }
     }
 
     jvm("android")
 
-    val kotlinCoroutines = "1.3.4"
+    val coroutinesVersion = "1.3.2"
+    val ktorVersion = "1.2.6"
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutinesVersion")
+
+        // HTTP
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
+        implementation("io.ktor:ktor-client-json:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+
+        implementation(project(":shared_data"))
     }
 
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+
+        // HTTP
+        implementation("io.ktor:ktor-client-android:$ktorVersion")
+        implementation("io.ktor:ktor-client-json-jvm:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
+        implementation("io.ktor:ktor-client-okhttp:$ktorVersion")
+        implementation("com.squareup.okhttp3:logging-interceptor:3.14.1")
+
+        implementation(project(":shared_data"))
     }
 
     sourceSets["iosMain"].dependencies {
-        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$coroutinesVersion")
+
+        // HTTP
+        implementation("io.ktor:ktor-client-ios:$ktorVersion")
+        implementation("io.ktor:ktor-client-json-native:$ktorVersion")
+        implementation("io.ktor:ktor-client-serialization-iosx64:$ktorVersion")
+
+        implementation(project(":shared_data"))
     }
 }
 
