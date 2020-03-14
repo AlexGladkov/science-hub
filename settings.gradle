@@ -1,0 +1,3 @@
+include ':app'
+include 'shared_domain'
+include 'shared_data'

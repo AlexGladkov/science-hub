@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="shared_code_androidMain" target="1.6" />
+      <module name="shared_code_androidTest" target="1.6" />
+      <module name="shared_data_androidMain" target="1.6" />
+      <module name="shared_data_androidTest" target="1.6" />
+      <module name="shared_domain_androidMain" target="1.6" />
+      <module name="shared_domain_androidTest" target="1.6" />
+      <module name="SharedCode_androidMain" target="1.6" />
+      <module name="SharedCode_androidTest" target="1.6" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
