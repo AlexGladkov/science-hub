@@ -23,18 +23,30 @@ kotlin {
 
     jvm("android")
 
+    // Libraries versions
+    val kotlinSerialization = "0.20.0"
+    val ktorVersion = "1.3.2"
+    val kotlinCoroutines = "1.3.4"
+
+
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
-        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:0.20.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-serialization-runtime-common:$kotlinSerialization")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines")
+        implementation("io.ktor:ktor-client-core:$ktorVersion")
         implementation(":shared_data")
     }
 
     sourceSets["androidMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib")
+        implementation("io.ktor:ktor-client-android:$ktorVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines")
         implementation(":shared_data")
     }
 
     sourceSets["iosMain"].dependencies {
+        implementation("io.ktor:ktor-client-ios:$ktorVersion")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines")
         implementation(":shared_data")
     }
 }
