@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ScienceHub</string>
+    <string name="title_activity_single">ScienceHub</string>
 </resources>
