@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -17,6 +16,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerVersion "1.3.61-dev-withExperimentalGoogleExtensions-20200129"
+        kotlinCompilerExtensionVersion "0.1.0-dev07"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +35,10 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     packagingOptions {
@@ -47,23 +59,28 @@ android {
 dependencies {
     implementation project(":shared_domain")
 
-    def coroutinesVersion = '1.3.2'
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // Jetpack Compose
+    def composeVersion = '0.1.0-dev07'
+    implementation("androidx.compose:compose-runtime:$composeVersion")
+    implementation("androidx.ui:ui-core:$composeVersion")
+    implementation("androidx.ui:ui-framework:$composeVersion")
+    implementation("androidx.ui:ui-layout:$composeVersion")
+    implementation("androidx.ui:ui-material:$composeVersion")
+    implementation("androidx.ui:ui-foundation:$composeVersion")
+    implementation("androidx.ui:ui-animation:$composeVersion")
+    implementation "androidx.ui:ui-tooling:$composeVersion"
+    implementation('androidx.appcompat:appcompat:1.1.0')
+    implementation('androidx.activity:activity-ktx:1.0.0')
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
-    def viewModelVersion = '2.2.0'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$viewModelVersion"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$viewModelVersion"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$viewModelVersion"
-    kapt "androidx.lifecycle:lifecycle-compiler:$viewModelVersion"
 }

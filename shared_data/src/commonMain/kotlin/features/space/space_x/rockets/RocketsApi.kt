@@ -1,6 +1,7 @@
 package features.space.space_x.rockets
 
 import common.RemoteContract
+import features.space.space_x.models.SpaceXRocket
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.features.json.JsonFeature
@@ -10,7 +11,9 @@ import io.ktor.client.response.HttpResponse
 import io.ktor.client.response.readText
 import io.ktor.http.HttpMethod
 import io.ktor.http.URLProtocol
+import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.parseList
 
 @Suppress("EXPERIMENTAL_API_USAGE")
 class RocketsApi(clientEngine: HttpClientEngine) {
@@ -28,7 +31,8 @@ class RocketsApi(clientEngine: HttpClientEngine) {
     /**
      * Fetch rockets from space x storage implementation
      */
-    suspend fun fetchRockets(): RocketsFetchResponse {
+    @UseExperimental(ImplicitReflectionSerializer::class)
+    suspend fun fetchRockets(): List<SpaceXRocket> {
         val response = client.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTPS
@@ -39,6 +43,6 @@ class RocketsApi(clientEngine: HttpClientEngine) {
         }
 
         val jsonBody = response.readText()
-        return Json.nonstrict.parse(RocketsFetchResponse.serializer(), jsonBody)
+        return Json.nonstrict.parseList(jsonBody)
     }
 }
