@@ -22,15 +22,13 @@ import com.example.sciencehub.screens.MainScreen
 
 class SingleActivity : AppCompatActivity() {
 
-    private val TAG = SingleActivity::class.java.simpleName
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 
         setContent {
             MaterialTheme {
-                MainScreen()
+                MainScreen().initScreen()
             }
         }
     }

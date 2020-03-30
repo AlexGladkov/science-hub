@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="shared_domain-android">
-    <output-path>C:\Development\Shared\ScienceHub\shared_domain\build\libs</output-path>
+    <output-path>D:\Development\Shared\ScienceHub\shared_domain\build\libs</output-path>
     <root id="archive" name="shared_domain-android.jar" />
   </artifact>
 </component>
