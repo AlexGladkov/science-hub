@@ -25,6 +25,7 @@ kotlin {
 
     val coroutinesVersion = "1.3.2"
     val ktorVersion = "1.2.6"
+    val kodeinVersion = "6.5.5"
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
@@ -34,6 +35,10 @@ kotlin {
         implementation("io.ktor:ktor-client-core:$ktorVersion")
         implementation("io.ktor:ktor-client-json:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+
+        // DI
+        implementation("org.kodein.di:kodein-di-core:$kodeinVersion")
+        implementation("org.kodein.di:kodein-di-erased:$kodeinVersion")
 
         implementation(project(":shared_data"))
     }
@@ -92,3 +97,8 @@ val packForXcode by tasks.creating(Sync::class) {
 }
 
 tasks.getByName("build").dependsOn(packForXcode)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

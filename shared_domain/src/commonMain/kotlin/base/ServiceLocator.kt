@@ -9,13 +9,11 @@ import kotlin.native.concurrent.ThreadLocal
 @ThreadLocal
 object ServiceLocator {
 
-    private val rocketsApi by lazy { RocketsApi(PlatformServiceLocator.httpClientEngine) }
-
     val fetchProductionsUseCase: FetchProductionsUseCase
         get() = FetchProductionsUseCase()
 
     val fetchSpaceXRocketsUseCase: FetchSpaceXRocketsUseCase
-        get() = FetchSpaceXRocketsUseCase(rocketsApi = rocketsApi)
+        get() = FetchSpaceXRocketsUseCase(clientEngine = PlatformServiceLocator.httpClientEngine)
 }
 
 /**

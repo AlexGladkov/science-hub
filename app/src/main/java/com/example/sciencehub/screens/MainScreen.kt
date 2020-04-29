@@ -17,7 +17,7 @@ import com.example.sciencehub.flows.ProfileFlow
 
 @Model
 class ApplicationState {
-    var tabItem: TabItem = TabItem.Feed
+    var tabItem: TabItem = TabItem.Digest
 }
 
 class MainScreen: BaseScreen() {

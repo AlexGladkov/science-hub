@@ -27,6 +27,7 @@ kotlin {
     val ktorVersion = "1.2.6"
     val coroutinesVersion = "1.3.2"
     val serializationVersion = "0.14.0"
+    val kodeinVersion = "6.5.5"
 
     sourceSets["commonMain"].dependencies {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-common")
@@ -37,6 +38,11 @@ kotlin {
         implementation("io.ktor:ktor-client-core:$ktorVersion")
         implementation("io.ktor:ktor-client-json:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization:$ktorVersion")
+        implementation("io.ktor:ktor-client-logging:$ktorVersion")
+
+        // DI
+        implementation("org.kodein.di:kodein-di-core:$kodeinVersion")
+        implementation("org.kodein.di:kodein-di-erased:$kodeinVersion")
     }
 
     sourceSets["androidMain"].dependencies {
@@ -47,6 +53,7 @@ kotlin {
         implementation("io.ktor:ktor-client-android:$ktorVersion")
         implementation("io.ktor:ktor-client-json-jvm:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization-jvm:$ktorVersion")
+        implementation("io.ktor:ktor-client-logging-jvm:$ktorVersion")
     }
 
     sourceSets["iosMain"].dependencies {
@@ -56,6 +63,7 @@ kotlin {
         implementation("io.ktor:ktor-client-ios:$ktorVersion")
         implementation("io.ktor:ktor-client-json-native:$ktorVersion")
         implementation("io.ktor:ktor-client-serialization-iosx64:$ktorVersion")
+        implementation("io.ktor:ktor-client-logging-native:$ktorVersion")
     }
 }
 
@@ -87,3 +95,8 @@ val packForXcode by tasks.creating(Sync::class) {
 }
 
 tasks.getByName("build").dependsOn(packForXcode)
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}

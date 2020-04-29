@@ -14,31 +14,27 @@ import io.ktor.http.URLProtocol
 import kotlinx.serialization.ImplicitReflectionSerializer
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.parseList
+import org.kodein.di.erased.instance
+import di.kodein
 
 @Suppress("EXPERIMENTAL_API_USAGE")
 class RocketsApi(clientEngine: HttpClientEngine) {
 
-    /**
-     * Http client creation for this request
-     * @param clientEngine - real engine
-     */
-    private val client = HttpClient(clientEngine) {
-        install(JsonFeature) {
-            serializer = KotlinxSerializer()
-        }
-    }
+    private val httpClient: HttpClient by kodein.instance(arg = clientEngine)
+    private val baseUrl: String by kodein.instance(tag = "spaceXUrl")
+    private val apiPath: String by kodein.instance(tag = "spaceXRocketsPath")
 
     /**
      * Fetch rockets from space x storage implementation
      */
     @UseExperimental(ImplicitReflectionSerializer::class)
     suspend fun fetchRockets(): List<SpaceXRocket> {
-        val response = client.get<HttpResponse> {
+        val response = httpClient.get<HttpResponse> {
             url {
                 protocol = URLProtocol.HTTPS
                 method = HttpMethod.Get
-                host = RemoteContract.spaceXBaseUrl
-                encodedPath = "rockets"
+                host = baseUrl
+                encodedPath = apiPath
             }
         }
 

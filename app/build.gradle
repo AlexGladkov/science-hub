@@ -53,6 +53,7 @@ android {
         exclude 'META-INF/ktor-http-cio.kotlin_module'
         exclude 'META-INF/ktor-client-json.kotlin_module'
         exclude 'META-INF/ktor-client-core.kotlin_module'
+        exclude 'META-INF/*.kotlin_module'
     }
 }
 
